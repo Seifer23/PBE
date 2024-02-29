@@ -18,7 +18,6 @@ Per aconseguir connectar el lector RFID-RC522 a la Raspberry Pi hem de connectar
 | RST          | Pin 22        | Reset                                           |
 | 3.3V         | Pin 1         | Power Supply                                    |
 
-<img title="" src="file:///C:/Users/salva/AppData/Roaming/marktext/images/2024-02-26-18-27-28-GPIO-Pinout-Diagram-2.png" alt="" width="507" data-align="center">
 
 Un cop connectat el lector a la Raspberry Pi, hen de centrar-nos en la raspberry pi per completar la connexió. 
 
@@ -29,8 +28,6 @@ sudo raspi_config
 ```
 
 I un cop al menú hem de navegar fins a l'opció de _Interface Options_, i un cop dins d'aquesta opció activar el mòdul SPI.
-
-<img title="" src="file:///C:/Users/salva/AppData/Roaming/marktext/images/2024-02-26-18-33-15-image.png" alt="" width="481" data-align="center"><img title="" src="file:///C:/Users/salva/AppData/Roaming/marktext/images/2024-02-26-18-34-43-image.png" alt="" width="481" data-align="center">
 
 Un cop activat el mòdul cal reiniciar la placa.
 
