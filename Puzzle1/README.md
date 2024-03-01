@@ -18,8 +18,9 @@ Per aconseguir connectar el lector RFID-RC522 a la Raspberry Pi hem de connectar
 | RST          | Pin 22        | Reset                                           |
 | 3.3V         | Pin 1         | Power Supply                                    |
 
+<img title="" src="../.mdAssets/GPIO_pins.png" alt="" width="507" data-align="center">
 
-Un cop connectat el lector a la Raspberry Pi, hen de centrar-nos en la raspberry pi per completar la connexió. 
+Un cop connectat el lector a la Raspberry Pi, hen de centrar-nos en la raspberry pi per completar la connexió.
 
 Per poder comunicar-nos amb el lector, hem de configurar la Raspberry Pi per fer servir el bus spi. Per tal de fer això, hem de connectar-nos via _SSH_ a la placa i fer servir el commandament:
 
@@ -28,6 +29,8 @@ sudo raspi_config
 ```
 
 I un cop al menú hem de navegar fins a l'opció de _Interface Options_, i un cop dins d'aquesta opció activar el mòdul SPI.
+
+<img title="" src="../.mdAssets/raspi-config_1.png" alt="" width="481" data-align="center"><img title="" src="../.mdAssets/raspi-config_2.png" alt="" width="481" data-align="center">
 
 Un cop activat el mòdul cal reiniciar la placa.
 
@@ -110,7 +113,7 @@ if __name__=="__main__":
 
 ## Lectura del contingut i escriptura
 
-Aquest lector permet molt més que llegir el _UID_ de les targetes, també permet escriure contingut en les targetes.
+Aquest lector permet molt més que llegir el _UID_ de les targetes, també permet escriure contingut en les targetes. Com a repte personal, he decidit implementar també aquestes funcions.
 
 Per tal de fer això, podem augmentar la classe RfidRc522:
 
