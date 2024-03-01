@@ -1,14 +1,22 @@
 <h1 style="text-align: center;">Laboratori de PBE</h1>
 
-# Memòria Pràctica 1
+# Memoria Puzzle 1 PBE
 
 ## Introducció
 
 L'objectiu d'aquest puzzle és aconseguir la conexió entre la raspberry pi i el lector RFID.
 
-## Connexió
+## Connexió a internet
 
-Per aconseguir connectar el lector RFID-RC522 a la Raspberry Pi hem de connectar els pins corresponents a la Raspberry Pi.
+Abans de treballar amb la Raspberry Pi, hem de donar-li connexió a internet. Per tal d'aconseguir connectar-se a internet, cal connectar la Raspberry al portàtil Linux mitjançant un cable ethernet. D'aquesta manera, fent servir `nmtui` es pot crear una connexió ethernet compartida que permet connectar la raspberry a internet. Abans però, cal instal·lar el paquet `dnsmasq`.
+
+![](.mdAssets/nmtui.png)
+
+<div style="page-break-after: always;"></div>
+
+## Connexió amb el dispositiu
+
+Un cop aconseguit connectar la raspberry a internet, mitjançant `SSH` ja ens podem connectar a la Raspberry. Un cop arribat aqui, per aconseguir connectar el lector RFID-RC522 a la Raspberry Pi hem de connectar els pins corresponents a la Raspberry Pi.
 
 | **PIN RFID** | Pin Raspberry | Funció                                          |
 |:------------:|:-------------:|:----------------------------------------------- |
@@ -39,8 +47,6 @@ Un cop activat el mòdul cal reiniciar la placa.
 ```bash
 sudo reboot
 ```
-
-<div style="page-break-after: always;"></div>
 
 Ara la placa ja es pot comunicar amb el lector, però per poder programar la seva funció hem d'instalar paquets a la raspberry pi:
 
