@@ -5,13 +5,14 @@ import RPi.GPIO as GPIO
 from mfrc522 import SimpleMFRC522
 
 class RfidRc522:
+    def __init__(self):
+        self.lector = SimpleMFRC522()
+        
     def scanUid(self):
         try:
-            lector = SimpleMFRC522()
-            uid = lector.read_id()
-            hexUid = hex(uid).upper()
+            uid = self.lector.read_id()
         finally: GPIO.cleanup()
-        return hexUid.strip("0X")
+        return hex(uid).upper().strip("0X")
 
 if __name__=="__main__":
 
