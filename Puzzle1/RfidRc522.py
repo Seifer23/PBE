@@ -5,7 +5,7 @@ import RPi.GPIO as GPIO
 from mfrc522 import SimpleMFRC522
 
 class RfidRc522:
-
+    
     def scanUid(self):
         try:
             lector = SimpleMFRC522()
