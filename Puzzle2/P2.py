@@ -12,7 +12,7 @@ class FinestraP2(Gtk.Window):
 
         #Creem la finestra
         Gtk.Window.__init__(self, title = "Puzzle2")
-        Gtk.Window.set_default_size(self, 200,50)
+        Gtk.Window.set_default_size(self, 300,50)
         self.connect("destroy", self.close)
         self.set_border_width(5)
         self.set_resizable(False)
@@ -33,38 +33,34 @@ class FinestraP2(Gtk.Window):
         
         self.btnBox = Gtk.Box()
         
-        self.closeBtn = Gtk.Button(label = "Close")
-        self.closeBtn.connect("clicked", self.close)
         self.clearBtn = Gtk.Button(label = "Clear")
         self.clearBtn.connect("clicked", self.clear_uid)
-
         self.btnBox.pack_start(self.clearBtn, True, True, 0)
-        self.btnBox.pack_start(self.closeBtn, True, True, 0)
-        
 
         ##Afegim les subcaixes dins de la caixa principal
         self.box.pack_start(self.uidBox, True, True, 0)
         self.box.pack_start(self.btnBox, True, True, 0)
         
         ##Threading
-        thread = threading.Thread(target = self.scan_uid)
-        thread.daemon = True
-        thread.start()
+        self.thread = threading.Thread(target = self.scan_uid)
+        self.thread.daemon = True
+        self.thread.start()
     
     #funció que reinicia el thread per llegir el uid
     def clear_uid(self, widget):
-        self.uidLabel.set_label('\nPlace the tag on the sensor\n')
-        thread = threading.Thread(target = self.scan_uid)
-        thread.start()
+        if not self.thread.is_alive():
+            self.uidLabel.set_label('\nPlace the tag on the sensor\n')
+            self.thread = threading.Thread(target = self.scan_uid)
+            self.thread.start()
 
     #funció que crida el thread
     def scan_uid(self):
-        uid = self.lector.read_uid()
+        uid = self.lector.scan_uid()
         self.uidLabel.set_label("\n" + uid + "\n")
 
     #funció que tanca la finestra (lligada a "destroy")
     def close(self, widget):
-        self.lector.close()
+        self.lector.lector.close()
         Gtk.main_quit()
     
 
