@@ -1,69 +1,80 @@
-import threading
-import Rfid
-import gi
+import threading #Threads
+import Rfid #Llibreria del Puzzle 1
+import gi #
 
 gi.require_version('Gtk', '3.0')
-from gi.repository import Gtk, Gdk
+from gi.repository import Gtk, Gdk, Gio #llibreries de Gtk
 
-class FinestraP2(Gtk.Window):
+class Finestra(Gtk.Window):
 
     def __init__(self):
-        self.lector = Rfid.Rfid()
 
-        #Creem la finestra
+        #Assignem el lector Rfid a self.lector
+        self.lector = Rfid.Rfid() 
+
+        #Inicialitzem el proveïdor de css
+        self.css = Gtk.CssProvider()
+        self.css.load_from_file(Gio.File.new_for_path("style.css"))
+        self.screen = Gdk.Screen.get_default()
+        self.context = Gtk.StyleContext()
+        self.context.add_provider_for_screen(self.screen, self.css, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+
+        #Propietats de la finestra
         Gtk.Window.__init__(self, title = "Puzzle2")
-        Gtk.Window.set_default_size(self, 300,50)
+        Gtk.Window.set_size_request(self, 300, 50)
         self.connect("destroy", self.close)
-        self.set_border_width(5)
         self.set_resizable(False)
 
-        #Caixa que conté els dos widgets
-        
+        #Caixa principal
         self.box = Gtk.Box(orientation = "vertical")
         self.add(self.box)
-        
-        ##Caixa que conté el label del uid (ho faig per organitzar la finestra)
-        self.uidBox = Gtk.EventBox()
-        self.uidLabel = Gtk.Label(label = "\nPlace the tag on the sensor\n")
-        #self.uidBox.pack_start(self.uidLabel, True, True, 0)
-        self.uidBox.add(self.uidLabel)
 
-        #Caixa que conté els dos botons (clear i el botó temporal de close)
-        #TODO: Eliminar la caixa abans de presentar
-        
-        self.btnBox = Gtk.Box()
-        
-        self.clearBtn = Gtk.Button(label = "Clear")
-        self.clearBtn.connect("clicked", self.clear_uid)
-        self.btnBox.pack_start(self.clearBtn, True, True, 0)
+        #Caixa que conté el uid
+        self.uid_box = Gtk.Box()
+        self.uid_box.set_border_width(5)
+        self.uid_box.get_style_context().add_class("uid-box-blue")
+        self.uid_label = Gtk.Label(label = "Please, login with your university card")
+        self.uid_label.set_size_request(300, 50)
+        self.uid_label.set_line_wrap(True)
+        self.uid_box.add(self.uid_label)
 
-        ##Afegim les subcaixes dins de la caixa principal
-        self.box.pack_start(self.uidBox, True, True, 0)
-        self.box.pack_start(self.btnBox, True, True, 0)
+        #Botó
+        self.clear_btn = Gtk.Button(label = "Clear")
+        self.clear_btn.connect("clicked", self.clear_uid)
         
-        ##Threading
+        #Afegim tot a la capxai principal
+        self.box.add(self.uid_box)
+        self.box.add(self.clear_btn)
+
+        #Thread del lector
         self.thread = threading.Thread(target = self.scan_uid)
         self.thread.daemon = True
         self.thread.start()
-    
-    #funció que reinicia el thread per llegir el uid
+
     def clear_uid(self, widget):
+
+        #Evitem que el botó faci res si encara no s'ha llegit cap targeta
         if not self.thread.is_alive():
-            self.uidLabel.set_label('\nPlace the tag on the sensor\n')
+            self.uid_label.set_label("Please, login with your university card")
+            self.uid_box.get_style_context().add_class("uid-box-blue")
+            self.uid_box.get_style_context().remove_class("uid-box-red")
+            
+            #Tornem a iniciar el thread
             self.thread = threading.Thread(target = self.scan_uid)
             self.thread.start()
 
-    #funció que crida el thread
     def scan_uid(self):
-        uid = self.lector.scan_uid()
-        self.uidLabel.set_label("\n" + uid + "\n")
 
-    #funció que tanca la finestra (lligada a "destroy")
+        uid = self.lector.scan_uid()
+        self.uid_label.set_label("UID:" + uid)
+        self.uid_box.get_style_context().add_class("uid-box-red")
+        self.uid_box.get_style_context().remove_class("uid-box-blue")
+
     def close(self, widget):
+
         self.lector.lector.close()
         Gtk.main_quit()
-    
 
-win = FinestraP2()
+win = Finestra()
 win.show_all()
 Gtk.main()
