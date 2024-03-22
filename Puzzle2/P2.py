@@ -32,6 +32,7 @@ class Finestra(Gtk.Window):
         #Caixa que conté el uid
         self.uid_box = Gtk.Box()
         self.uid_box.set_border_width(5)
+        self.uid_box.get_style_context().add_class("uid-box")
         self.uid_box.get_style_context().add_class("uid-box-blue")
         self.uid_label = Gtk.Label(label = "Please, login with your university card")
         self.uid_label.set_size_request(300, 50)

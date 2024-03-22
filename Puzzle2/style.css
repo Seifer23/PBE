@@ -1,0 +1,10 @@
+.uid-box-blue {
+        background-color: #0096FF; /* Green */
+}
+.uid-box-red {
+	background-color: #ff3131; /* Red */
+}
+.uid-box{
+	border-radius: 10px;
+}
+
