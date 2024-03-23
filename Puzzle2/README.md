@@ -4,7 +4,8 @@
 
 L'objectiu d'aquesta pràctica és desenvolupar una versió gràfica del puzzle anterior.
 
-<img src="file:///C:/Users/salva/Desktop/image.png" title="" alt="image.png" data-align="inline">   ![image2.png](C:\Users\salva\Desktop\image2.png)
+![](../.mdAssets/window1.png)
+![](../.mdAssets/window2.png)
 
 ## Llibreries Necessàries
 
