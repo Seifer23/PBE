@@ -3,7 +3,7 @@ import Rfid #Llibreria del Puzzle 1
 import gi #
 
 gi.require_version('Gtk', '3.0')
-from gi.repository import Gtk, Gdk, Gio #llibreries de Gtk
+from gi.repository import Gtk, Gdk, Gio, GLib #llibreries de Gtk
 
 class Finestra(Gtk.Window):
 
@@ -67,6 +67,10 @@ class Finestra(Gtk.Window):
     def scan_uid(self):
 
         uid = self.lector.scan_uid()
+        GLib.idle_add(self.print_uid, uid)
+
+    def print_uid(self, uid):
+
         self.uid_label.set_label("UID:" + uid)
         self.uid_box.get_style_context().add_class("uid-box-red")
         self.uid_box.get_style_context().remove_class("uid-box-blue")
