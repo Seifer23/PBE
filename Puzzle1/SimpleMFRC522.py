@@ -36,7 +36,7 @@ class SimpleMFRC522:
       
   def uid_to_hex(self, uid):
       n = 0
-      for i in range(0, 5):
+      for i in range(0, 4):
           n = n * 256 + uid[i]
       return hex(n).upper().strip("0X")
 
