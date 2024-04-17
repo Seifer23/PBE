@@ -1,0 +1,13 @@
+.login-label-box {
+        background-color: #0096FF; /* Green */
+	border-radius: 10px;
+}
+.login-box{
+	margin-top: 300px;
+	margin-right: 50px;
+	margin-left: 50px;
+}
+.login-label{
+	font-size: 25px;
+	color: white;
+}
