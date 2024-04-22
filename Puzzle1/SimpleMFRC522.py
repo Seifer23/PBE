@@ -23,6 +23,9 @@ class SimpleMFRC522:
     id = self.read_id_no_block()
     while not id:
       id = self.read_id_no_block()
+
+    if len(id) == 7:
+        return str(id) + "0"
     return id
 
   def read_id_no_block(self):
@@ -32,7 +35,7 @@ class SimpleMFRC522:
       (status, uid) = self.READER.MFRC522_Anticoll()
       if status != self.READER.MI_OK:
           return None
-      return self.uid_to_hex(uid).upper().strip("0X")
+      return self.uid_to_hex(uid).upper()
       
   def uid_to_hex(self, uid):
       n = 0
