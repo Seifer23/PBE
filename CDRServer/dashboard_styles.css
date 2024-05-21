@@ -1,0 +1,59 @@
+/* dashboard_styles.css */
+
+th {
+    background-color: LightGrey;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: LightSlateGrey;
+}
+
+.dashboard-box {
+    max-width: 400px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-box h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.dashboard-box form {
+    margin-bottom: 20px;
+}
+
+.dashboard-box input[type="text"] {
+    width: 80%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+.dashboard-box input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background: #333;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.dashboard-box input[type="submit"]:hover {
+    background: #555;
+}
+
+.query-result {
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    background-color: #f9f9f9;
+}
