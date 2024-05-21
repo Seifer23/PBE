@@ -1,8 +1,11 @@
 import threading
-import Rfid, Request
 import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, Gdk, Gio, GLib
+
+import Requests
+import Rfid
+
 
 class Finestra(Gtk.Window):
 
@@ -29,21 +32,23 @@ class Finestra(Gtk.Window):
         self.context = Gtk.StyleContext()
         self.context.add_provider_for_screen(self.screen, self.css, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)  
 
-        self.req = Request.Request()
+        self.req = Requests.Requests()
 
 
     def login_init(self):
-
+        
+        #Inicialització del Lector
         self.lector = Rfid.Rfid()
+
+        #Característiques de la caixa principal
         self.login_box = Gtk.Box(orientation = "vertical")
         self.login_box.get_style_context().add_class("login-box")
 
-        #Etiqueta del UID
+        #Caixa de login
         self.login_label_box = Gtk.Box()
         self.login_label_box.get_style_context().add_class("login-label-box")
         self.login_label = Gtk.Label(label = "Please, login with your university card")
         self.login_label.get_style_context().add_class("login-label")
-        #self.login_label.set_line_wrap(True)
         self.login_label.set_size_request(300, 100)
         self.login_label_box.set_center_widget(self.login_label)
         self.login_box.add(self.login_label_box)
@@ -169,7 +174,7 @@ class Finestra(Gtk.Window):
 
         else:
 
-            self.query_table_type.set_label("table")
+            self.query_table_type.set_label("")
             column_names = list(data[0].keys())
             model = Gtk.ListStore(*[str] * len(column_names))
             self.query_table.set_model(model)
